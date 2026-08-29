@@ -75,7 +75,7 @@ export async function voyagerRequest<T>(options: RequestOptions): Promise<T> {
       (isSameUrlRedirect(fullUrl, location) || clearSiteData)
     ) {
       throw new BotChallengeError(
-        `LinkedIn returned HTTP ${response.status} to the same URL (bot/WAF challenge). Cookie paste from DevTools cannot satisfy this from Node. Quit Chrome, run \`npm run chrome:debug\`, then \`npm run dev\`.`
+        `LinkedIn returned HTTP ${response.status} to the same URL. Refresh LINKEDIN_LI_AT and LINKEDIN_JSESSIONID from Chrome DevTools → Network → a voyager/api request (Cookie header).`
       );
     }
 

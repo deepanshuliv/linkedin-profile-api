@@ -1,12 +1,17 @@
-import { getAuth, hasCookieAuth } from './auth.js';
-import { chromeFetch, isChromeCdpAvailable } from './chrome.js';
-import { managedBrowserFetch, isManagedBrowserReady } from './managed-browser.js';
+import { Impit } from 'impit';
+import { getAuth } from './auth.js';
 import type { LinkedInHttpResponse } from './types.js';
 
-export type LinkedInTransport = 'cdp' | 'managed-chrome';
+const impit = new Impit({
+  browser: 'chrome151',
+  followRedirects: false,
+});
 
 export function voyagerHeaders(extra: Record<string, string> = {}): Record<string, string> {
-  const headers: Record<string, string> = {
+  const auth = getAuth();
+  return {
+    cookie: auth.cookie_header,
+    'csrf-token': auth.csrf_token,
     'x-restli-protocol-version': '2.0.0',
     accept: 'application/vnd.linkedin.normalized+json+2.1',
     'accept-language': 'en-US,en;q=0.9',
@@ -27,34 +32,34 @@ export function voyagerHeaders(extra: Record<string, string> = {}): Record<strin
     }),
     ...extra,
   };
-
-  return headers;
-}
-
-export async function resolveTransport(): Promise<LinkedInTransport> {
-  if (await isChromeCdpAvailable()) return 'cdp';
-  if (await isManagedBrowserReady()) return 'managed-chrome';
-  throw new Error(
-    'No LinkedIn transport. Set LINKEDIN_LI_AT + LINKEDIN_JSESSIONID (server Chromium) or run `npm run chrome:debug` (local Chrome).'
-  );
 }
 
 export async function linkedinFetch(
   url: string,
   options: { method?: string; headers?: Record<string, string> } = {}
 ): Promise<LinkedInHttpResponse> {
-  const method = options.method || 'GET';
+  const method = (options.method || 'GET') as 'GET';
   const headers = voyagerHeaders(options.headers || {});
-  delete headers.cookie;
-  delete headers['csrf-token'];
+  delete headers['user-agent'];
+  delete headers['User-Agent'];
 
-  const transport = await resolveTransport();
-  if (transport === 'cdp') {
-    return chromeFetch(url, { method, headers });
-  }
+  const response = await impit.fetch(url, {
+    method,
+    headers,
+    redirect: 'manual',
+  });
 
-  if (!hasCookieAuth()) {
-    getAuth();
-  }
-  return managedBrowserFetch(url, { method, headers });
+  const headerBag = response.headers;
+  const bodyText = await response.text();
+
+  return {
+    ok: response.ok,
+    status: response.status,
+    url: response.url,
+    headers: {
+      get: (name: string) => headerBag.get(name),
+    },
+    text: async () => bodyText,
+    json: async () => JSON.parse(bodyText),
+  };
 }

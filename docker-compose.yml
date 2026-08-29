@@ -7,14 +7,4 @@ services:
       - .env
     environment:
       PORT: "3000"
-      LINKEDIN_BROWSER_HEADLESS: "true"
-      LINKEDIN_BROWSER_PROFILE: /app/data/chrome-profile
-      PUPPETEER_EXECUTABLE_PATH: /usr/bin/chromium
-      # LINKEDIN_PROXY_URL: http://user:pass@residential-proxy:port
-    volumes:
-      - chrome-profile:/app/data/chrome-profile
-    shm_size: "2gb"
     restart: unless-stopped
-
-volumes:
-  chrome-profile:

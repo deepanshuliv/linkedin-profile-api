@@ -14,7 +14,7 @@ export class ExpiredSessionError extends Error {
 
 export class BotChallengeError extends Error {
   constructor(
-    message: string = 'LinkedIn blocked the request (bot/WAF challenge). Update backend session cookies and retry.'
+    message: string = 'LinkedIn rejected the session. Refresh LINKEDIN_LI_AT and LINKEDIN_JSESSIONID from a voyager/api request.'
   ) {
     super(message);
     this.name = 'BotChallengeError';
