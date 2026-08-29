@@ -1,0 +1,30 @@
+{
+  "name": "linkenin-api",
+  "version": "1.0.0",
+  "description": "Hosted LinkedIn profile API: URL in, structured JSON out via reverse-engineered Voyager endpoints",
+  "main": "index.js",
+  "scripts": {
+    "test": "vitest run",
+    "dev": "tsx watch src/server.ts",
+    "start": "tsx src/server.ts",
+    "build": "tsc",
+    "chrome:debug": "node scripts/launch-chrome-debug.mjs",
+    "probe": "tsx scripts/probe-managed.mts"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "dependencies": {
+    "@fastify/cors": "^11.3.0",
+    "dotenv": "^17.4.2",
+    "fastify": "^5.12.1",
+    "puppeteer-core": "^25.9.0"
+  },
+  "devDependencies": {
+    "@types/node": "^26.4.0",
+    "tsx": "^4.23.12",
+    "typescript": "^7.0.2",
+    "vitest": "^4.1.11"
+  }
+}

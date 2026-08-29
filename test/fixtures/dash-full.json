@@ -1,0 +1,95 @@
+{
+  "data": {
+    "*elements": [
+      "urn:li:fsd_profile:ACoAAAAAAAAB"
+    ]
+  },
+  "included": [
+    {
+      "$type": "com.linkedin.voyager.dash.identity.profile.Profile",
+      "entityUrn": "urn:li:fsd_profile:ACoAAAAAAAAB",
+      "publicIdentifier": "testuser",
+      "firstName": "Test",
+      "lastName": "User",
+      "headline": "Software Engineer at Tech",
+      "locationName": "San Francisco, CA",
+      "geoCountryName": "US",
+      "summary": "I am a software engineer.",
+      "picture": {
+        "displayImageReference": {
+          "*elements": ["urn:li:digitalmediaAsset:1234"]
+        }
+      },
+      "*profilePositionGroups": ["urn:li:fsd_profilePositionGroup:111"],
+      "*educations": ["urn:li:fsd_profileEducation:222"],
+      "*skills": ["urn:li:fsd_profileSkill:333"],
+      "*certifications": ["urn:li:fsd_profileCertification:444"],
+      "*languages": ["urn:li:fsd_profileLanguage:555"]
+    },
+    {
+      "$type": "com.linkedin.voyager.dash.identity.profile.PositionGroup",
+      "entityUrn": "urn:li:fsd_profilePositionGroup:111",
+      "name": "Tech Corp",
+      "*positions": ["urn:li:fsd_profilePosition:1111"]
+    },
+    {
+      "$type": "com.linkedin.voyager.dash.identity.profile.Position",
+      "entityUrn": "urn:li:fsd_profilePosition:1111",
+      "title": "Software Engineer",
+      "companyName": "Tech Corp",
+      "description": "Coding things",
+      "timePeriod": {
+        "startDate": { "year": 2020, "month": 1, "day": null }
+      }
+    },
+    {
+      "$type": "com.linkedin.voyager.dash.identity.profile.Education",
+      "entityUrn": "urn:li:fsd_profileEducation:222",
+      "schoolName": "University of Tech",
+      "degreeName": "B.S.",
+      "fieldOfStudy": "Computer Science",
+      "timePeriod": {
+        "startDate": { "year": 2016 },
+        "endDate": { "year": 2020 }
+      }
+    },
+    {
+      "$type": "com.linkedin.voyager.dash.identity.profile.Skill",
+      "entityUrn": "urn:li:fsd_profileSkill:333",
+      "name": "JavaScript",
+      "endorsementCount": 10
+    },
+    {
+      "$type": "com.linkedin.voyager.dash.identity.profile.Certification",
+      "entityUrn": "urn:li:fsd_profileCertification:444",
+      "name": "AWS Certified",
+      "authority": "Amazon",
+      "timePeriod": {
+        "startDate": { "year": 2021 }
+      }
+    },
+    {
+      "$type": "com.linkedin.voyager.dash.identity.profile.Language",
+      "entityUrn": "urn:li:fsd_profileLanguage:555",
+      "name": "English",
+      "proficiency": "Native"
+    },
+    {
+      "$type": "com.linkedin.digitalmedia.mediaartifact.StillImage",
+      "entityUrn": "urn:li:digitalmediaAsset:1234",
+      "rootUrl": "https://media.licdn.com/dms/image/",
+      "artifacts": [
+        {
+          "width": 100,
+          "height": 100,
+          "fileIdentifyingUrlPathSegment": "profile-pic-100.jpg"
+        },
+        {
+          "width": 400,
+          "height": 400,
+          "fileIdentifyingUrlPathSegment": "profile-pic-400.jpg"
+        }
+      ]
+    }
+  ]
+}
